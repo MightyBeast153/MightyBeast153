@@ -4,12 +4,9 @@ title: Student Blog
 ---
 
 
-## Build you Home Page here 
-This is about your journey. Start now!!!
-
-## Overview of Hacks, Study and Tangibles
-Blogging in GitHub pages is a way to learn and code at the same time. 
-
-- Plans, Lists, [Scrum Boards](https://clickup.com/blog/scrum-board/) help you to track key events, show progress and record time.  Effort is a big part of your class grade.  Show plans and time spent!
-- [Hacks(Todo)](https://levelup.gitconnected.com/six-ultimate-daily-hacks-for-every-programmer-60f5f10feae) enable you to stay in focus with key requirements of the class.  Each Hack will produce Tangibles.
-- Tangibles or [Tangible Artifacts](https://en.wikipedia.org/wiki/Artifact_(software_development)) are things you accumulate as a learner and coder. 
+# Welcome to my Student Blog
+<br>
+<center>
+<img src="images/MyPicture.png" alt="aboutme" width="350"
+length="450"></center>
+This image represents me. The controller obviously represents that I game, and I won't lie, I game an unhealthy amount. It's not as bad anymore, but I used to game for like 15 hours a day. Now it's more around like 6-8. The Czech flag represents both me and my mom, because she used to live there for her entire childhood and a bit of her adulthood. She moved to America and met my dad, they married, had me 3 years later. It became a thing that every summer we went over to Czech to visit her family, and I slowely acquired a bit of the language, which I still speak now. It's very broken, but I can have basic conversations with my family. 
