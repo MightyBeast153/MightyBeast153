@@ -1,0 +1,6 @@
+total = 0
+
+for i in range(1, 101): # Prints a list consisting of 0-100 getting incrementally bigger until it reaches 100, where the code stops
+    total += i
+
+print("The sum of the all the numbers is:", total)
