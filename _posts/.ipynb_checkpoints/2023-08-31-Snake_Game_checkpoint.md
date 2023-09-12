@@ -2,7 +2,7 @@
 toc: true
 comments: false
 layout: post
-title: Snake Game
+title: Snake Game 1 1 
 description: Project for Snake Game
 type: hacks
 courses: { compsci: {week: 2} }
@@ -187,6 +187,10 @@ courses: { compsci: {week: 2} }
             button_new_game2.onclick = function(){newGame();};
             button_setting_menu.onclick = function(){showScreen(SCREEN_SETTING);};
             button_setting_menu1.onclick = function(){showScreen(SCREEN_SETTING);};
+    if (evt.code === "ArrowUp" || evt.code === "ArrowDown") {
+        // Prevent the default scrolling behavior
+        evt.preventDefault();
+    }
             // speed
             setSnakeSpeed(150);
             for(let i = 0; i < speed_setting.length; i++){
@@ -268,7 +272,7 @@ courses: { compsci: {week: 2} }
                 snake[snake.length] = {x: snake[0].x, y: snake[0].y};
                 altScore(++score);
                 addFood();
-                activeDot(food.x, food.y);
+                activeDot(food.x, food.y, true);
             }
             // Repaint canvas
             ctx.beginPath();
@@ -279,7 +283,7 @@ courses: { compsci: {week: 2} }
                 activeDot(snake[i].x, snake[i].y);
             }
             // Paint food
-            activeDot(food.x, food.y);
+            activeDot(food.x, food.y, true);
             // Debug
             //document.getElementById("debug").innerHTML = snake_dir + " " + snake_next_dir + " " + snake[0].x + " " + snake[0].y;
             // Recursive call after speed delay, déjà vu
@@ -311,19 +315,23 @@ courses: { compsci: {week: 2} }
         let changeDir = function(key){
             // test key and switch direction
             switch(key) {
-                case 37:    // left arrow
+                case 37:  // left arrow
+                case 65: // a
                     if (snake_dir !== 1)    // not right
                         snake_next_dir = 3; // then switch left
                     break;
-                case 38:    // up arrow
+                case 38:   // up arrow
+                case 87:   
                     if (snake_dir !== 2)    // not down
                         snake_next_dir = 0; // then switch up
                     break;
-                case 39:    // right arrow
+                case 39:     // right arrow
+                case 68:    
                     if (snake_dir !== 3)    // not left
                         snake_next_dir = 1; // then switch right
                     break;
-                case 40:    // down arrow
+                case 40:     // down arrow
+                case 83:     
                     if (snake_dir !== 0)    // not up
                         snake_next_dir = 2; // then switch down
                     break;
@@ -331,10 +339,16 @@ courses: { compsci: {week: 2} }
         }
         /* Dot for Food or Snake part */
         /////////////////////////////////////////////////////////////
-        let activeDot = function(x, y){
-            ctx.fillStyle = "#FFFFFF";
+        let activeDot = function(x, y, isFood = false) {
+            if (isFood) {
+                console.log("creating food")
+                ctx.fillStyle = "#ff0000";
+                ctx.fillRect(x * BLOCK, y * BLOCK, BLOCK, BLOCK);
+            } else {
+            ctx.fillStyle = "#008000";
             ctx.fillRect(x * BLOCK, y * BLOCK, BLOCK, BLOCK);
-        }
+            }
+        };
         /* Random food placement */
         /////////////////////////////////////////////////////////////
         let addFood = function(){

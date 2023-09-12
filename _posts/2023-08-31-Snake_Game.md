@@ -21,7 +21,7 @@ courses: { compsci: {week: 2} }
         display: none;
         border-style: solid;
         border-width: 10px;
-        border-color: #FFFFFF;
+        border-color: #0000FF;
     }
     canvas:focus{
         outline: none;
@@ -67,7 +67,7 @@ courses: { compsci: {week: 2} }
     }
 
     #setting input:checked + label{
-        background-color: #FFF;
+        background-color: #0000FF;
         color: #000;
     }
 </style>
@@ -187,6 +187,18 @@ courses: { compsci: {week: 2} }
             button_new_game2.onclick = function(){newGame();};
             button_setting_menu.onclick = function(){showScreen(SCREEN_SETTING);};
             button_setting_menu1.onclick = function(){showScreen(SCREEN_SETTING);};
+            window.addEventListener("keydown", function(evt) {
+    // Check if the key is the up or down arrow key
+    if (evt.code === "ArrowUp" || evt.code === "ArrowDown") {
+        // Prevent the default scrolling behavior
+        evt.preventDefault();
+    }
+
+    // spacebar detected
+    if (evt.code === "Space" && SCREEN !== SCREEN_SNAKE) {
+        newGame();
+    }
+}, true);
             // speed
             setSnakeSpeed(150);
             for(let i = 0; i < speed_setting.length; i++){
@@ -272,7 +284,7 @@ courses: { compsci: {week: 2} }
             }
             // Repaint canvas
             ctx.beginPath();
-            ctx.fillStyle = "#0000FF";
+            ctx.fillStyle = "#00008B"; // gray color
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             // Paint snake
             for(let i = 0; i < snake.length; i++){
@@ -308,22 +320,26 @@ courses: { compsci: {week: 2} }
         }
         /* Key Inputs and Actions */
         /////////////////////////////////////////////////////////////
-        let changeDir = function(key){
+ let changeDir = function(key){
             // test key and switch direction
             switch(key) {
                 case 37:    // left arrow
+                case 65: // a
                     if (snake_dir !== 1)    // not right
                         snake_next_dir = 3; // then switch left
                     break;
                 case 38:    // up arrow
+                case 87:
                     if (snake_dir !== 2)    // not down
                         snake_next_dir = 0; // then switch up
                     break;
-                case 39:    // right arrow
+                case 39:
+                case 68:    // right arrow
                     if (snake_dir !== 3)    // not left
                         snake_next_dir = 1; // then switch right
                     break;
                 case 40:    // down arrow
+                case 83:
                     if (snake_dir !== 0)    // not up
                         snake_next_dir = 2; // then switch down
                     break;
@@ -331,27 +347,28 @@ courses: { compsci: {week: 2} }
         }
         /* Dot for Food or Snake part */
         /////////////////////////////////////////////////////////////
-        let activeDot = function(x, y, isFood = false) {
-            if (isFood) {
-                console.log("creating food")
-                ctx.fillStyle = "#ff0000";
-                ctx.fillRect(x * BLOCK, y * BLOCK, BLOCK, BLOCK);
-            } else {
-            ctx.fillStyle = "#008000";
-            ctx.fillRect(x * BLOCK, y * BLOCK, BLOCK, BLOCK);
-            }
-        };
+let activeDot = function(x, y, isFood = false) {
+    if (isFood) {
+        console.log("creating food")
+        ctx.fillStyle = "#ff0000"; // Set the color of the food to red
+        ctx.fillRect(x * BLOCK, y * BLOCK, BLOCK, BLOCK);
+    } else {
+        ctx.fillStyle = "#90EE90"; // Set the color of the snake body to green
+        ctx.fillRect(x * BLOCK, y * BLOCK, BLOCK, BLOCK);
+    }
+};
         /* Random food placement */
         /////////////////////////////////////////////////////////////
-        let addFood = function(){
-            food.x = Math.floor(Math.random() * ((canvas.width / BLOCK) - 1));
-            food.y = Math.floor(Math.random() * ((canvas.height / BLOCK) - 1));
-            for(let i = 0; i < snake.length; i++){
-                if(checkBlock(food.x, food.y, snake[i].x, snake[i].y)){
-                    addFood();
-                }
-            }
+        let addFood = function() {
+    food.x = Math.floor(Math.random() * ((canvas.width / BLOCK) - 1));
+    food.y = Math.floor(Math.random() * ((canvas.height / BLOCK) - 1));
+    for (let i = 0; i < snake.length; i++) {
+        if (checkBlock(food.x, food.y, snake[i].x, snake[i].y)) {
+            addFood();
         }
+    }
+    activeDot(food.x, food.y, true); // Indicate that this is food
+};
         /* Collision Detection */
         /////////////////////////////////////////////////////////////
         let checkBlock = function(x, y, _x, _y){
